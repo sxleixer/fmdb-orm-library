@@ -6,8 +6,9 @@
 //  Copyright (c) 2014 Ralf Schleicher. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-@interface FMDBORMLibrary : NSObject
-
-@end
+#import "FMDBORMTableProtocol.h"
+#import "FMDBORMColumn.h"
+#import "FMDBORMHelper.h"
+#import "FMDBORMModel.h"
+#import "FMDatabase.h"
+#import "FMResultSet.h"
