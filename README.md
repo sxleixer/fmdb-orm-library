@@ -1,13 +1,13 @@
-<h1>fmdb-orm-library</h1>
+# fmdb-orm-library
 fmdb-orm-library is an iOS (probably even MacOS, thus not tested yet) ORM library. It is taking the FMDB SQLite Database Handler to the next level. And perfectly integrates the ORM approach into the FMDatabase environments generating a minimum of object handling overhead by caching frequently used parts.
 
 The library uses ARC so if you want to use it in a non-ARC project you will have to set the compiler-flag <code>-fobjc-arc</code> to the FMDBORM[...]-Classes.
 
-<h2>What does it do?</h2>
+## What does it do?
 fmdb-orm-library defines a protocol to interact with every database type you'd like to.
 Already integrated into the Library is a prototype class called <code>FMDBORMModel</code>. By subclassing this class you can define and map new objects for interaction with the underlying SQLLite database.
 
-<h2>How to do it?</h2>
+## How to do it?
 Clone the library into your project and add the <code>FMDBLibrary</code> folder into your project file. You will also have to add the fmdb library. Either you do it by cloning it from their repository or you use the copy included in the <code>Frameworks/fmdb</code> folder which definetly works with the current version.
 
 Create a subclass of <code>FMDBORMModel</code>.
@@ -17,7 +17,7 @@ Override the class method <code>+(NSString*)tablename</code> which returns the n
 
 Override the class method <code>+(NSDictionary)mapping</code> like shown below.
 Assuming there is a property <code>entityKey</code> of type <code>NSString</code> present.
-<code>
+<pre>
 +(NSDictionary)mapping {
   NSMutableDictionary *mapping = [NSMutableDictionary dictionaryWithDictionary:[super mapping]];
   
@@ -25,4 +25,4 @@ Assuming there is a property <code>entityKey</code> of type <code>NSString</code
 
   return mapping;
 }
-</code>
+</pre>
