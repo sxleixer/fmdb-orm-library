@@ -17,7 +17,7 @@ Override the class method <code>+(NSString*)tablename</code> which returns the n
 
 Override the class method <code>+(NSDictionary)mapping</code> like shown below.
 Assuming there is a property <code>entityKey</code> of type <code>NSString</code> present.
-'''
+```objective-c
 +(NSDictionary)mapping {
   NSMutableDictionary *mapping = [NSMutableDictionary dictionaryWithDictionary:[super mapping]];
   
@@ -25,4 +25,4 @@ Assuming there is a property <code>entityKey</code> of type <code>NSString</code
 
   return mapping;
 }
-'''
+```
