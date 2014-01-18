@@ -19,10 +19,40 @@ Override the class method <code>+(NSDictionary)mapping</code> like shown below.
 Assuming there is a property <code>entityKey</code> of type <code>NSString</code> present.
 ```objective-c
 +(NSDictionary)mapping {
-  NSMutableDictionary *mapping = [NSMutableDictionary dictionaryWithDictionary:[super mapping]];
-  
-  [mapping setObject:[[FMDBORMColumn alloc] initWithColumnName:@"entity_key" andType:FMDBORMTypeText andExtraModifier:@[FMDBORMExtraUnique] forKey:@"entityKey"];
+ NSMutableDictionary *mapping = [NSMutableDictionary dictionaryWithDictionary:[super mapping]];
 
-  return mapping;
+ [mapping setObject:[[FMDBORMColumn alloc] initWithColumnName:@"entity_key" andType:FMDBORMTypeText andExtraModifier:@[FMDBORMExtraUnique] forKey:@"entityKey"];
+
+ return mapping;
 }
 ```
+You don't have to care about performance because this part will be called once and then be cached.
+
+If you're in the opinion that your model is ready to use, you finally habe to override the Methode <code>+(BOOL)isAbstract</code> as follows.
+```objective-c
++(BOOL)isAbstract {
+ return NO;
+}
+```
+
+## Creating, updating, deleting rows
+Assuming that there is a Model named <code>Bike</code> with mapped properties <code>NSInteger speed, NSString *facturer, CGFloat frameHeight, NSDate *factoringDate, NSData *image</code>.
+```objective-c
+FMDatabaseQueue *queue = ...
+
+[queue inDatabase:^(FMDatabase db) {
+ Bike *stevens = [[Bike alloc] init];
+ stevens.facturer = @"Stevens";
+ stevens.frameHeight = 1.2;
+ stevens.factoringDate = [NSDate now];
+ stevens.image = UIPNGDataRepresentation([[UIImage alloc] initWithContentsOfFile:@"filepath"]);
+ // Creates or updates the object
+ [stevens put:db];
+ ...
+ // Delete the object
+ [stevens erase:db];
+}
+```
+
+## How to tweak the standard model?
+If you're working with for example Google App Engine you soon will find the standard model to be inappropriate. But since the model is highly flexible you can override some methods to achieve your desired goal.
